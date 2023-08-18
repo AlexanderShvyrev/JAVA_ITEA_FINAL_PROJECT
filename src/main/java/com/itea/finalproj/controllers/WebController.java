@@ -56,24 +56,20 @@ public class WebController {
     @PostMapping("/createOrder")
     public String createOrderSubmit(@ModelAttribute OrderForm orderForm, Model model) {
         if (orderForm.getCustomerId() == null) {
-            // Handle the case where customer ID is not provided
-            // You might display an error message or perform other actions
         } else {
-            // Fetch the selected customer
+
             Customer customer = customerService.getCustomerById(orderForm.getCustomerId());
 
-            // Create a new Order instance and set its attributes
             Order newOrder = new Order();
             newOrder.setCustomer(customer);
             newOrder.setAdditionalInformation(orderForm.getAdditionalInformation());
             newOrder.setStatus("Waiting");
             newOrder.setDate(new Date());
 
-            // Save the new order
             orderService.createOrder(newOrder);
         }
 
-        return "redirect:/listOrders"; // Redirect to the list of orders
+        return "redirect:/listOrders";
     }
 
     @GetMapping("/addCustomer")
