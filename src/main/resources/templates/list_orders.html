@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List of Orders</title>
+</head>
+<body>
+<h1>List of Orders</h1>
+<a th:href="@{/createOrder}"><button>Create Order</button></a>
+<a th:href="@{/addCustomer}"><button>Create Customer</button></a>
+<table>
+    <tr>
+        <th>Order No.</th>
+        <th>Customer</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+        <td><a th:href="@{/viewOrder/{orderNumber}(orderNumber=${order.orderNumber})}" th:text="${order.orderNumber}"></a></td>
+        <td><a th:href="@{/viewCustomer/{customerId}(customerId=${order.customer.id})}" th:text="${order.customer.fullName}"></a></td>
+        <td th:text="${order.status}"></td>
+        <td>
+            <form th:action="@{/removeOrder}" method="post">
+                <input type="hidden" name="orderNumber" th:value="${order.orderNumber}" />
+                <button type="submit">Remove</button>
+            </form>
+        </td>
+</table>
+</body>
+</html>

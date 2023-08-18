@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Order</title>
+</head>
+<body>
+<h1>Create Order</h1>
+<form th:action="@{/createOrder}" th:object="${orderForm}" method="post">
+    <label for="customerId">Customer:</label>
+    <select id="customerId" name="customerId">
+        <option th:each="customer : ${customers}"
+                th:value="${customer.id}"
+                th:text="${customer.fullName}"></option>
+    </select>
+    <br>
+    <label for="additionalInformation">Additional Information:</label>
+    <input type="text" id="additionalInformation" name="additionalInformation" th:field="*{additionalInformation}">
+    <br>
+    <button type="submit">Create Order</button>
+</form>
+<br>
+<a th:href="@{/addCustomer}">Create New Customer</a>
+</body>
+</html>
